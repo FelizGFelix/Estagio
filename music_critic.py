@@ -15,7 +15,7 @@ def main1():
 
         def main(self):
             self.musica = input("Digite o nome da música: ")
-            self.nota = int(input("Digite a sua nota: "))
+            self.nota = float(input("Digite a sua nota: "))
             self.critica = input("Digite a sua critica: ")
 
             review = {
@@ -40,21 +40,18 @@ def main2():
         print("Nota: ", i["Nota"])
         print("Critica: ", i["Critica"])
 
-        input = ("Deseja voltar para o menu principal? digite qualquer tecla: ")
+    input = ("Deseja voltar para o menu principal? digite qualquer tecla: ")
 
 
-def main3():
-    while True:
-        resposta = int(input("Escolha uma das opções abaixo:\n -> 1: escrever uma nota review\n -> 2: acessar duas reviews\n-> "))
 
-        if resposta == 1:
-            limpar()
-            main1()
+while True:
+    resposta = int(input("Escolha uma das opções abaixo:\n -> 1: escrever uma nota review\n -> 2: acessar duas reviews\n-> "))
 
-        elif resposta == 2:
-            limpar()
-            main2()
+    if resposta == 1:
+        limpar()
+        main1()
+
+    elif resposta == 2:
+        limpar()
+        main2()
         
-
-if __name__ == "__main__":
-    main3()
