@@ -40,18 +40,25 @@ def main2():
         print("Nota: ", i["Nota"])
         print("Critica: ", i["Critica"])
 
-    input = ("Deseja voltar para o menu principal? digite qualquer tecla: ")
+    print("----------------------------------")
+    input("Deseja voltar para o menu principal? digite qualquer tecla: ")
+    principal()
 
 
+def principal():
+    var = True
 
-while True:
-    resposta = int(input("Escolha uma das opções abaixo:\n -> 1: escrever uma nota review\n -> 2: acessar duas reviews\n-> "))
+    while var:
+        resposta = int(input("Escolha uma das opções abaixo:\n -> 1: escrever uma nota review\n -> 2: acessar suas reviews\n-> "))
 
-    if resposta == 1:
-        limpar()
-        main1()
+        if resposta == 1:
+            limpar()
+            main1()
 
-    elif resposta == 2:
-        limpar()
-        main2()
+        elif resposta == 2:
+            limpar()
+            var = False
+            main2()
         
+if __name__ == "__main__":
+    principal()
