@@ -14,11 +14,18 @@ def main1():
             self.critica = ""
 
         def main(self):
+            self.artista = input("Digite o nome do artista/banda: ")
             self.musica = input("Digite o nome da música: ")
             self.nota = float(input("Digite a sua nota: "))
+
+            if self.nota > 10:
+                    print("Valores acima de 10 não são permitidos")
+                    self.nota = float(input("Digite um valor válido: "))
+
             self.critica = input("Digite a sua critica: ")
 
             review = {
+                "Artista/Banda" : self.artista,
                 "Música" : self.musica,
                 "Nota" : self.nota,
                 "Critica" : self.critica
@@ -26,7 +33,8 @@ def main1():
 
             lista_reviews.append(review)
 
-    variavel = input("Digite o nome do artista/banda: ")
+            variavel = self.artista
+
     variavel = Music()
     variavel.main()
 
@@ -36,13 +44,16 @@ def main1():
 def main2():
     for i in lista_reviews:
         print("----------------------------------")
+        print("Artista/Banda: ", i["Artista/Banda"])
         print("Nome: ", i["Música"])
         print("Nota: ", i["Nota"])
         print("Critica: ", i["Critica"])
 
     print("----------------------------------")
     input("Deseja voltar para o menu principal? digite qualquer tecla: ")
+    limpar()
     principal()
+
 
 
 def principal():
