@@ -22,7 +22,6 @@ def main1():
                     print("Valores acima de 10 não são permitidos")
                     self.nota = float(input("Digite um valor válido: "))
 
-
             self.critica = input("Digite a sua critica: ")
 
             review = {
@@ -58,9 +57,8 @@ def main2():
 
 
 def principal():
-    var = True
 
-    while var:
+    while True:
         try:
             resposta = int(input("Escolha uma das opções abaixo:\n -> 1: escrever uma nota review\n -> 2: acessar suas reviews\n-> "))
 
