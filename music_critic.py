@@ -68,7 +68,6 @@ def principal():
 
         elif resposta == 2:
             limpar()
-            var = False
             main2()
         
 if __name__ == "__main__":
