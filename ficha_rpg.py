@@ -62,17 +62,23 @@ def criar():
     banco.close()
 
 def mostrar():
-    for i in registros:
-        print("Nome:", i["Nome"])
-        print("HP:", i["HP"])
-        print("MP:", i["MP"])
-        print("Forca:", i["Forca"])
-        print("Agilidade:", i["Agilidade"])
-        print("PDF:", i["PDF"])
-        print("Inteligência:", i["Inteligencia"])
-        print("Resistência:", i["Resistencia"])
-        print("Armadura: ", i["Armadura"])
-        print("---------------------")
+    banco = sqlite3.connect("registro_fichas.db")
+    banco.row_factory = sqlite3.Row
+    cursor = banco.cursor()
+    cursor.execute("SELECT * from character")
+    dict_list = [dict(row) for row in cursor.fetchall()]
+
+    for i in dict_list:
+            print("Nome:", i["Nome"])
+            print("HP:", i["HP"])
+            print("MP:", i["MP"])
+            print("Forca:", i["Forca"])
+            print("Agilidade:", i["Agilidade"])
+            print("PDF:", i["PDF"])
+            print("Inteligência:", i["Inteligencia"])
+            print("Resistência:", i["Resistencia"])
+            print("Armadura: ", i["Armadura"])
+            print("---------------------")
     
     input("Digite qualquer valor para voltar: ")
     limpar()
@@ -92,13 +98,16 @@ while True:
 
         else:
             limpar()
+
             print("Digite uma opção válida")
             input("Digite qualquer valor para voltar: ")
+            limpar()
 
     except:
         limpar()
         print("Digite uma opção válida")
         input("Digite qualquer valor para voltar: ")
+        limpar()
 
 
     
