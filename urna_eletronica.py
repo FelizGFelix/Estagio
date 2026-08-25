@@ -27,39 +27,48 @@ candidatos = {
 
 def votar():
     limpar()
-    votar = int(input(print("Vote para presidente (candidatos de 2026): ")))
+    votar = int(input("Vote para presidente (candidatos de 2026): "))
 
-    if votar not in candidatos_disponiveis:
+    while votar not in candidatos_disponiveis:
         print("Este candidato não existe, tente novamente")
-        votar = input(print("Vote para presidente (candidatos de 2026): "))
-    
-    else:
+        votar = int(input("Vote para presidente (candidatos de 2026): "))
+
+    if votar in candidatos_disponiveis:
         print("Voto confirmado!")
-        print("Digite qualquer valor para retornar: ")
-        input()
+
+    localizado = None
 
     for presidente, numero in candidatos.items():
         if votar == numero:
             localizado = presidente
-
-            return localizado
-            
+            break
 
     banco = sqlite3.connect("votos.db")
     cursor = banco.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS ""tabela_votos"" ('numero_candidato' INTEGER UNIQUE,PRIMARY KEY('numero_candidato')")
-    cursor.execute("INSERT INTO tabela_votos (numero_candidato) VALUES (:CLARIANA BARAO, :EDMILSON COSTA, :AUGUSTO CURY, :FLAVIO BOLSONARO, :HERTZ DIAS, :LULA, :PABLO MARÇAL, :RENAN SANTOS, :RONALDO CAIADO, :RUI COSTA PIMENTA, :SAMARA MARTINS, :WILSON GRASSI JUNIOR, :ROMEU ZEMA)", localizado)
+    cursor.execute("CREATE TABLE IF NOT EXISTS tabela_votos ('numero_candidato' INTEGER)")
+    cursor.execute("INSERT INTO tabela_votos (numero_candidato) VALUES (?)", (votar,))
     banco.commit()
     banco.close()
 
+    print("Digite qualquer valor para retornar: ")
+    input()
+    limpar()
+
 def conferir_ganhador():
     limpar()
-    engine = create_engine("sqlite:///Users/felipefelix/Downloads/PROJECTS/urna_eletronica/urna_eletronica.py votos.db")
-    df = pd.read_sql_query("SELECT * FROM votos", engine)
+    engine = create_engine("sqlite:///votos.db")
+    df = pd.read_sql_query("SELECT * FROM tabela_votos", engine)
 
     candidato_vencedor = pd.Series(df.values.ravel()).mode()[0]
 
-    print(f"O candidato vencedor até agora é: {candidato_vencedor}")
+    localizado = None
+
+    for presidente, numero in candidatos.items():
+        if numero == candidato_vencedor:
+            localizado = presidente
+            break
+
+    print(f"O candidato vencedor até agora é: {localizado}")
     print("Digite qualquer valor para retornar: ")
     input()
     limpar()
@@ -69,7 +78,7 @@ def main():
 
     while True:
         print("Bem-Vindo a urna eletrônica!")
-        resposta = int(input(print("Escolha uma das opções:\n1- Votar\n2- Exibir vencedor\n->")))
+        resposta = int(input("Escolha uma das opções:\n1- Votar\n2- Exibir vencedor\n->"))
 
         if resposta == 1:
             votar()
