@@ -36,8 +36,6 @@ def votar():
     if votar in candidatos_disponiveis:
         print("Voto confirmado!")
 
-    localizado = None
-
     for presidente, numero in candidatos.items():
         if votar == numero:
             localizado = presidente
@@ -50,8 +48,7 @@ def votar():
     banco.commit()
     banco.close()
 
-    print("Digite qualquer valor para retornar: ")
-    input()
+    input("Digite qualquer valor para retornar: ")
     limpar()
 
 def conferir_ganhador():
@@ -61,16 +58,13 @@ def conferir_ganhador():
 
     candidato_vencedor = pd.Series(df.values.ravel()).mode()[0]
 
-    localizado = None
-
     for presidente, numero in candidatos.items():
         if numero == candidato_vencedor:
             localizado = presidente
             break
 
     print(f"O candidato vencedor até agora é: {localizado}")
-    print("Digite qualquer valor para retornar: ")
-    input()
+    input("Digite qualquer valor para retornar: ")
     limpar()
 
 def main():
@@ -87,6 +81,7 @@ def main():
             conferir_ganhador()
 
         else:
+            limpar()
             print("Digite uma opção válida!")
 
 
