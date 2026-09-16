@@ -56,7 +56,7 @@ def mina():
 
     while True:
 
-        resposta = int(input("1- ADICIONAR MATERIAL\n2- CONFERIR MATERIAL\n3- ATUALIZAR QUANTIDADE\n4- EXCLUIR QUANTIDADE\n->"))
+        resposta = int(input("1- ADICIONAR MATERIAL\n2- CONFERIR MATERIAIS\n3- ATUALIZAR QUANTIDADE\n4- EXCLUIR MATERIAL\n->"))
 
         if resposta == 1:
             limpar()
