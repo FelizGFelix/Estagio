@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 load_dotenv()
 
 con = os.getenv("SENHA")
+pc = os.getenv("PC")
 
 def limpar():
     command = 'cls' if os.name == 'nt' else 'clear'
@@ -23,6 +24,31 @@ conexao = mysql.connector.connect(
     user = "LAIN_FELIX",
     password = con
 )
+
+def senha():
+    print("Bem-Vindo ao sistema de gerencia do Nether!")
+    resposta = input("Digite a senha: ")
+
+    contador = 0
+
+    while resposta != con or resposta != pc:
+        if resposta == con or resposta == pc:
+            limpar()
+            print("Acesso liberado!")
+
+            while True:
+                main()
+
+        elif resposta != con or resposta != pc:
+            print("Acesso negado, tente novamente!")
+            resposta = input("Digite a senha: ")
+
+            contador+=1
+
+            if contador == 5:
+                print("Número de tentativas excedido!")
+                print("Sistema bloqueado!")
+                break
 
 cursor = conexao.cursor()
 
@@ -211,4 +237,4 @@ def main():
             caverna_overworld()
 
 if __name__ == "__main__":
-    main()
+    senha()
