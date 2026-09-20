@@ -19,7 +19,7 @@ def retornar():
     limpar()
 
 conexao = mysql.connector.connect(
-    host = "MacBook-Air-de-Felipe-3.local",
+    host = "localhost",
     database = "nether_recursos",
     user = "LAIN_FELIX",
     password = con
