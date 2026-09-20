@@ -260,7 +260,7 @@ class Minerios():
         quantidade = int(input("Digite a nova quantidade do minério em questão: "))
 
         cursor.execute("UPDATE MINERIOS SET quantidade = %s WHERE id = %s",(quantidade,id_material,))
-        atualizar_quantidade_global("CAVERNA", id_material, quantidade)
+        atualizar_quantidade_global("MINERIOS", id_material, quantidade)
 
         conexao.commit()
         retornar()
