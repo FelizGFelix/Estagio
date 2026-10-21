@@ -1,5 +1,6 @@
 import os
 import networkx as nx
+import matplotlib.pyplot as plt
 
 grafo = nx.Graph()
 
@@ -27,12 +28,12 @@ class CinemaCon():
     def info_origem(self):
         limpar()
 
-        self.nome = input("Digite o seu nome: ")
+        self.nome = input("Digite o seu nome: ").upper()
 
         if not self.nome:
             limpar()
             print("Digite um nome váldio!")
-            self.nome = input("Digite o seu nome: ")
+            self.nome = input("Digite o seu nome: ").upper()
 
         else:
             print("Nome registrado com sucesso!")
@@ -57,7 +58,9 @@ class CinemaCon():
             "Ponto de origem" : self.origem
         }
 
-        grafo.add_node(self.saldo, **usuario)
+        grafo.add_node(self.nome, **usuario)
+
+        grafo.add_edge(self.nome, self.origem)
 
         retorno()
 
@@ -91,6 +94,21 @@ class CinemaCon():
         #print(grafo.nodes(data=True))
 
         return grafo
+    
+    def visualizar_grafos_mapa(self):
+        limpar()
+        pos = nx.spring_layout(grafo)
+        nx.draw(grafo, pos, with_labels=True)
+        rotulos = nx.get_edge_attributes(grafo, "weight")
+        nx.draw_networkx_edge_labels(grafo, pos, edge_labels=rotulos)
+        plt.show()
+
+    def conferir_grafos(self):
+        limpar()
+        print("O cinema de qual shopping você gostaria de conferir os dados?")
+        print(grafo.nodes())
+
+        retorno()
 
 cinema = CinemaCon()
 
@@ -98,13 +116,19 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n->"))
+        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR CINEMAS\n->"))
 
         if resposta == 1:
             cinema.info_origem()
 
         elif resposta == 2:
             cinema.adicionar_cinema()
+
+        elif resposta == 3:
+            cinema.visualizar_grafos_mapa()
+
+        elif resposta == 4:
+            cinema.conferir_grafos()
 
 if __name__ == "__main__":
     main()
