@@ -81,7 +81,7 @@ class CinemaCon():
         limpar()
         self.cinema = input("Digite o nome do cinema: ").upper()
         self.cidade = input("Digite a cidade em que esse cinema fica: ").upper()
-        self.loc = input("Digite a localização: ").upper()
+        self.loc = input("Digite a localização (estabelecimento aonde fica o cinema): ").upper()
         preco_int = float(input("Digite o preço do ingreço: "))
 
         self.preco = (preco_int * 50) / 100
