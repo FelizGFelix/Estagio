@@ -105,8 +105,13 @@ class CinemaCon():
 
     def conferir_grafos(self):
         limpar()
-        print("O cinema de qual shopping você gostaria de conferir os dados?")
+        print("O grafo você gostaria de conferir os dados?")
         print(grafo.nodes())
+
+        escolhido = input("-> ").upper()
+
+        if escolhido in grafo:
+            print(grafo.nodes[escolhido])
 
         retorno()
 
@@ -116,7 +121,7 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR CINEMAS\n->"))
+        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n->"))
 
         if resposta == 1:
             cinema.info_origem()
