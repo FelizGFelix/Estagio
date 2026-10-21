@@ -73,9 +73,9 @@ class CinemaCon():
             "Ônibus" : self.transporte
         }
 
-        grafo.add_node(self.loc, **conexao)
+        grafo.add_node(self.cinema, **conexao)
 
-        grafo.add_edge(self.nome, self.loc, weight = self.preco)
+        grafo.add_edge(self.nome, self.cinema, weight = self.preco)
 
         retorno()
 
@@ -95,7 +95,7 @@ class CinemaCon():
 
     def conferir_grafos(self):
         limpar()
-        print("O grafo você gostaria de conferir os dados?")
+        print("Qual grafo você gostaria de conferir os dados?")
         print(grafo.nodes())
 
         escolhido = input("-> ").upper()
@@ -111,7 +111,7 @@ class CinemaCon():
         cinemas = [no for no, dados in grafo.nodes(data=True) if "Localização" in dados]
 
         origem = self.nome
-        destino = self.loc
+        destino = self.cinema
 
         melhor = min(
             cinemas,
