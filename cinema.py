@@ -1,4 +1,7 @@
 import os
+import networkx as nx
+
+grafo = nx.Graph()
 
 def limpar():
     command = 'cls' if os.name == 'nt' else 'clear'
@@ -9,69 +12,85 @@ def retorno():
     input("Digite qualquer valor para retornar: ")
     limpar()
 
-grafo = {}
-
 class CinemaCon():
     def __init__(self):
         self.cinema = ""
+        self.cidade = ""
         self.loc = ""
         self.preco = 0
-        self.ponto = ""
+        self.transporte = ""
         self.referencia = ""
+        self.origem = ""
+        self.saldo = 0
+        self.nome = ""
 
-    def adicionar_no(self):
+    def info_origem(self):
+        limpar()
+
+        self.nome = input("Digite o seu nome: ")
+
+        if not self.nome:
+            limpar()
+            print("Digite um nome váldio!")
+            self.nome = input("Digite o seu nome: ")
+
+        else:
+            print("Nome registrado com sucesso!")
+
+        self.saldo = float(input("Digite o seu saldo atual: "))
+
+        print("Saldo registrado com sucesso!")
+
+        self.origem = input("Digite o seu ponto de origem: ").upper()
+
+        if not self.origem:
+            limpar()
+            print("Digite um valor váldio!")
+            self.origem = input("Digite o seu ponto de origem: ").upper()
+
+        else:
+            print("Local registrado com sucesso!")
+
+        usuario = {
+            "Nome" : self.nome,
+            "Saldo atual" : self.saldo,
+            "Ponto de origem" : self.origem
+        }
+
+        grafo.add_node(self.saldo, **usuario)
+
+        retorno()
+
+    def adicionar_cinema(self):
         limpar()
         self.cinema = input("Digite o nome do cinema: ").upper()
+        self.cidade = input("Digite a cidade em que esse cinema fica: ").upper()
         self.loc = input("Digite a localização: ").upper()
         preco_int = float(input("Digite o preço do ingreço: "))
 
         self.preco = (preco_int * 50) / 100
 
-        self.ponto = input("Digite o ponto de ônibus que leva para lá: ").upper()
+        self.transporte = input("Digite o meio para chegar até lá: ").upper()
 
         conexao = {
             "Nome do Cinema" : self.cinema,
             "Localização" : self.loc,
             "Preço (inteiro)" : preco_int,
             "Preço (meia entrada)" : self.preco,
-            "Ônibus" : self.ponto
+            "Ônibus" : self.transporte
         }
 
-        grafo[self.loc] = []
+        grafo.add_node(self.loc, **conexao)
 
-        limpar()
-
-        return conexao
-
-    def adicionar_aresta(self):
-        limpar()
-        dados = self.adicionar_no()
-
-        if len(grafo) < 2:
-            print("Cadastre mais um cinema para poder criar uma conexão.")
-            retorno()
-            return
-
-        self.referencia = dados["Localização"]
-        destino = input("Digite a localização que deseja ir: ").upper()
-
-        while destino not in grafo or destino == self.referencia:
-            print("Destino não consta na lista")
-            destino = input("Digite novamente: ").upper()
-                
-
-        grafo[self.referencia].append(destino)
-        grafo[destino].append(self.referencia)
+        grafo.add_edge(self.origem, self.loc, weight = self.preco)
 
         retorno()
 
-    def listar_grafo(self):
-        limpar()
-        print("CINEMAS REGISTRADOS:")
-        for no in grafo:
-            print(f"{no} -> {grafo[no]}")
+        #print(grafo.nodes())
+        #print(grafo.edges())
+        #print(grafo.nodes(data=True))
 
-        retorno()
+        return grafo
 
 cinema = CinemaCon()
 
@@ -79,13 +98,13 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - CRIAR CONEXÃO\n2 - LISTAR GRAFOS\n->"))
+        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n->"))
 
         if resposta == 1:
-            cinema.adicionar_aresta()
+            cinema.info_origem()
 
         elif resposta == 2:
-            cinema.listar_grafo()
+            cinema.adicionar_cinema()
 
 if __name__ == "__main__":
     main()
