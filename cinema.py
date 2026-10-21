@@ -24,7 +24,6 @@ class CinemaCon():
         self.origem = ""
         self.saldo = 0
         self.nome = ""
-        self.destino = ""
 
     def info_origem(self):
         limpar()
@@ -53,27 +52,15 @@ class CinemaCon():
         else:
             print("Local registrado com sucesso!")
 
-        self.destino = input("Digite o local a qual deseja ir: ").upper()
-
-        if not self.destino:
-            limpar()
-            print("Digite um valor válido!")
-            self.destino = input("Digite o local a qual deseja ir (nome do estabelecimento): ").upper()
-
-        else:
-            print("Local registrado com sucesso!")
-
         usuario = {
             "Nome" : self.nome,
             "Saldo atual" : self.saldo,
             "Ponto de origem" : self.origem,
-            "Local que deseja ir" : self.destino
         }
 
         grafo.add_node(self.nome, **usuario)
 
         grafo.add_edge(self.nome, self.origem)
-        grafo.add_edge(self.origem, self.destino)
 
         retorno()
 
@@ -95,9 +82,6 @@ class CinemaCon():
             "Preço (meia entrada)" : self.preco,
             "Ônibus" : self.transporte
         }
-
-        if self.destino != self.loc:
-            grafo.add_edge(self.destino, self.loc, weight=0)
 
         grafo.add_node(self.loc, **conexao)
 
@@ -122,12 +106,32 @@ class CinemaCon():
     def conferir_grafos(self):
         limpar()
         print("O grafo você gostaria de conferir os dados?")
-        print(grafo.nodes())
+        print([no for no in grafo.nodes() if no != self.origem])
 
         escolhido = input("-> ").upper()
 
         if escolhido in grafo:
             print(grafo.nodes[escolhido])
+
+        retorno()
+
+    def dijkstra(self):
+        limpar()
+
+        cinemas = [no for no, dados in grafo.nodes(data=True) if "Localização" in dados]
+
+        origem = self.origem
+        destino = self.loc
+
+        melhor = min(
+            cinemas,
+            key=lambda c: nx.dijkstra_path_length(grafo, self.origem, c, weight="weight")
+        )
+        custo_total = nx.dijkstra_path_length(grafo, self.origem, melhor, weight="weight")
+
+
+        print(f"Cinema de menor custo: {melhor}")
+        print(f"Custo total: {custo_total}")
 
         retorno()
 
@@ -137,7 +141,7 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n->"))
+        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n5 - CONFERIR O MENOR VALOR\n->"))
 
         if resposta == 1:
             cinema.info_origem()
@@ -150,6 +154,9 @@ def main():
 
         elif resposta == 4:
             cinema.conferir_grafos()
+
+        elif resposta == 5:
+            cinema.dijkstra()
 
 if __name__ == "__main__":
     main()
