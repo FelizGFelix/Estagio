@@ -118,9 +118,26 @@ class CinemaCon():
         )
         custo_total = nx.dijkstra_path_length(grafo, self.nome, melhor, weight="weight")
 
-
         print(f"Cinema de menor custo: {melhor}")
         print(f"Custo total: {custo_total}")
+
+        retorno()
+
+    def calcular_custo(self):
+        limpar()
+        print("Qual cinema você gostaria de calcular os custos?")
+        print([no for no, dados in grafo.nodes(data=True) if "Nome do Cinema" in dados])
+
+        escolhido = input("-> ").upper()
+
+        if escolhido in grafo:
+            calcular = grafo.nodes[escolhido]["Preço (inteiro)"]
+
+            resultado = self.saldo - calcular
+
+            resultado2 = self.saldo - ((calcular * 50)/100)
+
+            print(f"Resultado:\nGasto com a inteira: {resultado}\nGasto com a meia entrada: {resultado2}")
 
         retorno()
 
@@ -130,7 +147,7 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - ADICIONAR MAIS PESSOAS\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n5 - CONFERIR O MENOR VALOR\n->"))
+        resposta = int(input("1 - ADICIONAR MAIS PESSOAS\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n5 - CONFERIR O MENOR VALOR\n6 - CONFERIR GASTOS\n->"))
 
         if resposta == 1:
             cinema.info_origem()
@@ -146,6 +163,9 @@ def main():
 
         elif resposta == 5:
             cinema.dijkstra()
+
+        elif resposta == 6:
+            cinema.calcular_custo()
 
 if __name__ == "__main__":
     cinema.info_origem()
