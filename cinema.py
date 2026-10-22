@@ -61,21 +61,25 @@ class CinemaCon():
         self.loc = input("Digite a localização (estabelecimento aonde fica o cinema): ").upper()
         preco_int = float(input("Digite o preço do ingreço: "))
 
-        self.preco = (preco_int * 50) / 100
+        self.preco = round((preco_int * 50) / 100, 2)
 
         self.transporte = input("Digite o meio para chegar até lá: ").upper()
 
-        conexao = {
+        conexao = {        
             "Nome do Cinema" : self.cinema,
             "Localização" : self.loc,
             "Preço (inteiro)" : preco_int,
             "Preço (meia entrada)" : self.preco,
-            "Ônibus" : self.transporte
+            "Transporte" : self.transporte
         }
 
-        grafo.add_node(self.cinema, **conexao)
+        no_cinema = f"{self.cinema})"
 
-        grafo.add_edge(self.nome, self.cinema, weight = self.preco)
+        grafo.add_node(no_cinema, **conexao)
+
+        for no, dados in grafo.nodes(data=True):
+            if "Saldo atual" in dados:
+                grafo.add_edge(no, no_cinema, weight=self.preco)
 
         retorno()
 
