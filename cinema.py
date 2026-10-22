@@ -73,13 +73,11 @@ class CinemaCon():
             "Transporte" : self.transporte
         }
 
-        no_cinema = f"{self.cinema})"
-
-        grafo.add_node(no_cinema, **conexao)
+        grafo.add_node(self.cinema, **conexao)
 
         for no, dados in grafo.nodes(data=True):
             if "Saldo atual" in dados:
-                grafo.add_edge(no, no_cinema, weight=self.preco)
+                grafo.add_edge(no, self.cinema, weight=self.preco)
 
         retorno()
 
@@ -114,9 +112,6 @@ class CinemaCon():
 
         cinemas = [no for no, dados in grafo.nodes(data=True) if "Localização" in dados]
 
-        origem = self.nome
-        destino = self.cinema
-
         melhor = min(
             cinemas,
             key=lambda c: nx.dijkstra_path_length(grafo, self.nome, c, weight="weight")
@@ -135,7 +130,7 @@ def main():
     resposta = 0
 
     while True:
-        resposta = int(input("1 - INFORMAÇÕES DE ORIGEM\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n5 - CONFERIR O MENOR VALOR\n->"))
+        resposta = int(input("1 - ADICIONAR MAIS PESSOAS\n2 - ADICIONAR CINEMA\n3 - VISUALIZAR MAPA\n4 - CONFERIR ATRIBUTOS\n5 - CONFERIR O MENOR VALOR\n->"))
 
         if resposta == 1:
             cinema.info_origem()
@@ -153,4 +148,5 @@ def main():
             cinema.dijkstra()
 
 if __name__ == "__main__":
+    cinema.info_origem()
     main()
