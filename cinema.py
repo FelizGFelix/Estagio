@@ -131,13 +131,22 @@ class CinemaCon():
         escolhido = input("-> ").upper()
 
         if escolhido in grafo:
-            calcular = grafo.nodes[escolhido]["Preço (inteiro)"]
+            print("De qual pessoa você quer calcular os gastos?")
+            print([no for no, dados in grafo.nodes(data=True) if "Nome" in dados])
 
-            resultado = self.saldo - calcular
+            nome_escolhido = input("-> ").upper()
 
-            resultado2 = self.saldo - ((calcular * 50)/100)
+            if nome_escolhido in grafo:
 
-            print(f"Resultado:\nGasto com a inteira: {resultado}\nGasto com a meia entrada: {resultado2}")
+                pessoa = grafo.nodes[nome_escolhido]["Saldo atual"]
+
+                calcular = grafo.nodes[escolhido]["Preço (inteiro)"]
+
+                resultado = pessoa - calcular
+
+                resultado2 = pessoa - ((calcular * 50)/100)
+
+                print(f"Resultado:\nGasto com a inteira: {resultado}\nGasto com a meia entrada: {resultado2}")
 
         retorno()
 
