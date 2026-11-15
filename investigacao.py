@@ -108,6 +108,8 @@ class Dados():
 
         if resposta in grafo:
             limpar()
+            print("-------------------------\n")
+
             print(f"NOME: {grafo.nodes[resposta]["Nome"]}\n")
 
             print("-------------------------\n")
