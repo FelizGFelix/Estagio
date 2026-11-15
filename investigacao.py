@@ -107,7 +107,10 @@ class Dados():
         resposta = input("-> ").upper()
 
         if resposta in grafo:
-            print(f"NOME: {grafo.nodes[resposta]["Nome"]}")
+            limpar()
+            print(f"NOME: {grafo.nodes[resposta]["Nome"]}\n")
+
+            print("-------------------------\n")
 
             print("INFORMAÇÕES: ")
 
