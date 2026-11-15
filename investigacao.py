@@ -73,6 +73,8 @@ class Dados():
                 ativo = False
                 print("INFORMAÇÕES SALVAS COM SUCESSO!")
 
+        lista_info.pop()
+
         entidade = {
             "Nome" : self.nome,
             "Informações" : lista_info
