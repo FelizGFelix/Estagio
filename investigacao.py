@@ -109,8 +109,10 @@ class Dados():
         if resposta in grafo:
             print(f"NOME: {grafo.nodes[resposta]["Nome"]}")
 
+            print("INFORMAÇÕES: ")
+
             for i in grafo.nodes[resposta]["Informações"]:
-                print(i)
+                print(f"- {i}")
 
         retorno()
 
